@@ -3,14 +3,12 @@ import styled from 'styled-components'
 
 const Section = styled.section`
     background-color: #d74234;
-    min-height: 200px;
-    padding: 50px 0;    
+    padding: 10px 0;
 `
 
 const H1 = styled.h1`
     color: #fff;
-    font-size: 8em;
-    font-family: courier;
+    font-size: 4em;
 `
 
 const Banner = () => {
@@ -19,7 +17,7 @@ const Banner = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <H1>Boggle</H1>
+                        <H1>BOGGLE</H1>
                     </div>
                 </div>
             </div>

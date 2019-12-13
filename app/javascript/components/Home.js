@@ -5,32 +5,47 @@ import Game from './Game'
 import axios from 'axios'
 
 class Home extends Component {
-    constructor() {
-        // Hi there Bich. I wanted to ask a small question regarding the task. Should the the system only validate
-        // words which are present on the board, diagonally, vertically or horizontally ?
-        // Or can the letters pivot as well ?
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
-            game_is_on: false,
+            game_is_on: true,
             letters: []
         }
+    }
 
+    componentDidMount() {
         axios.get('/get_board_letters.json')
             .then(response => {
-                this.state.letters = response.data.data;
+                this.setState({letters: response.data.data})
             })
             .catch(response => {
                 console.log(response)
             })
     }
 
+    restartGame(item) {
+        if(confirm("You'll lose all your progress. Are you sure ?")) {
+            axios.get('/get_board_letters.json')
+                .then(response => {
+                    this.setState({letters: response.data.data})
+                })
+                .catch(response => {
+                    console.log(response)
+                })
+        }
+    }
+
     render() {
+        const body = (
+            this.state.game_is_on ?
+                <Game boardLetters={this.state.letters} restartGame={this.restartGame.bind(this)}/> :
+                <Instructions/>
+        )
         return (
             <div className="main">
                 <Banner/>
-                {/* <Instructions /> */}
-                <Game/>
+                {body}
             </div>
         )
     }

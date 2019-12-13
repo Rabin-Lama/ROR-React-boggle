@@ -19,7 +19,7 @@ class GameController < ApplicationController
     # shuffling because vowels and consonants were linearly appended
     board_letters = board_letters.shuffle!
     render json: {
-      data: board_letters
+        data: board_letters
     }
   end
 end
