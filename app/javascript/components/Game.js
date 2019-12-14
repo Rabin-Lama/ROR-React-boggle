@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import GameBoard from './GameBoard'
 import GameScore from './GameScore'
 import GameSidebar from './GameSidebar'
-import styled from "styled-components";
 
 class Game extends Component {
     constructor(props) {
@@ -18,10 +17,17 @@ class Game extends Component {
                             <GameBoard boardLetters={this.props.boardLetters}/>
                         </div>
                         <div className="col-sm-2 col-md-3">
-                            <GameSidebar restartGame={this.props.restartGame}/>
+                            <GameSidebar
+                                restartGame={this.props.restartGame}
+                                submitWord={this.props.submitWord}
+                                submittedWordStatus={this.props.submittedWordStatus}
+                            />
                         </div>
                         <div className="col-sm-5 col-md-5">
-                            <GameScore/>
+                            <GameScore
+                                correctWords={this.props.correctWords}
+                                totalScore={this.props.totalScore}
+                            />
                         </div>
                     </div>
                 </div>

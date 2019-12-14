@@ -70,16 +70,16 @@ const MessageB = styled.div`
 const GameSidebar = (props) => {
     return (
         <div>
-            <Input placeholder="Enter text here"/>
+            <Input placeholder="Enter text here" onKeyDown={props.submitWord}/>
             <CountdownWrapper>
                 <i className="glyphicon glyphicon-time mr-3"/>
                 <Countdown
-                    date={Date.now() + 10000000}
+                    date={Date.now() + 180000}
                     renderer={renderer}
                 />
             </CountdownWrapper>
             <RestartButton onClick={props.restartGame}>Restart</RestartButton>
-            <MessageG>Awesome</MessageG>
+            <MessageG>{props.submittedWordStatus}</MessageG>
         </div>
     )
 }
