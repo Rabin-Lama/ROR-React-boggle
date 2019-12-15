@@ -12,7 +12,7 @@ class Home extends Component {
         super(props)
 
         this.state = {
-            game_is_on: true,
+            game_is_on: false,
             submitted_word_status: '',
             board_letters: [],
             correct_words: [],
@@ -35,14 +35,25 @@ class Home extends Component {
         e.preventDefault()
 
         if (confirm("You'll lose all your progress. Are you sure ?")) {
-            axios.get('/get_board_letters.json')
-                .then(response => {
-                    this.setState({board_letters: response.data.data})
-                })
-                .catch(response => {
-                    console.log(response)
-                })
+            this.startGame(e)
         }
+    }
+
+    startGame(e) {
+        axios.get('/get_board_letters.json')
+            .then(response => {
+                this.setState({
+                    game_is_on: true,
+                    board_letters: response.data.data,
+                    submitted_word_status: '',
+                    correct_words: [],
+                    attempted_words: [],
+                    total_score: 0
+                })
+            })
+            .catch(response => {
+                console.log(response)
+            })
     }
 
     submitWord(e) {
@@ -56,7 +67,8 @@ class Home extends Component {
                 return false;
             }
             axios.post('http://localhost:3000/submit_word', {
-                    word: submitted_word
+                    word: submitted_word,
+                    board_letters: this.state.board_letters
                 })
                 .then(response => {
                     if(response.data.result.length > 0) {
@@ -67,6 +79,7 @@ class Home extends Component {
 
                         // total score is sum of letters in all the words in the array
                         this.setState({total_score: this.state.correct_words.join('').length})
+                        // alert(response.data.test_res)
                     }
                 })
                 .catch(response => {
@@ -87,7 +100,7 @@ class Home extends Component {
                     totalScore={this.state.total_score}
                     submittedWordStatus={this.state.submitted_word_status}
                 /> :
-                <Instructions/>
+                <Instructions startGame={this.startGame.bind(this)}/>
         )
         return (
             <div className="main">

@@ -14,11 +14,15 @@ const Box = styled.div`
 `
 
 const GameBoard = (props) => {
+    let boxes = []
+    for(let i = 0; i < props.boardLetters.length; i++) {
+        for(let j = 0; j < props.boardLetters[i].length; j++) {
+            boxes.push(<Box className="col-sm-3" key={i+''+j}>{props.boardLetters[i][j]}</Box>)
+        }
+    }
     return (
         <div className="row">
-            {props.boardLetters.map((i, k) => {
-                return <Box className="col-sm-3" key={k}>{i}</Box>
-            })}
+            {boxes}
         </div>
     )
 }
