@@ -11,14 +11,18 @@ class GameController < ApplicationController
 
   def submit_word
     word_in_board = helpers.check_word_in_board
-    return false unless word_in_board
+    if word_in_board
+      result = helpers.check_word
 
-    result = helpers.check_word
-
-    render json: {
-      submitted_word: params[:word],
-      result: result,
-      test_res: word_in_board
-    }
+      render json: {
+        submitted_word: params[:word],
+        result: result
+      }
+    else
+      render json: {
+        submitted_word: params[:word],
+        result: ''
+      }
+    end
   end
 end

@@ -2,12 +2,10 @@ import React from "react";
 import styled from 'styled-components'
 import Countdown from 'react-countdown-now';
 
-const Completionist = () => <span>You are good to go!</span>;
-
-const renderer = ({minutes, seconds, completed}) => {
+const countdownRenderer = ({minutes, seconds, completed}, props) => {
     if (completed) {
-        alert("completed bro")
-        return <Completionist/>;
+        // props.setState({inputDisabled: true})
+        return <span>Time's Up !!!</span>;
     } else {
         return <span>{minutes}:{seconds}</span>;
     }
@@ -70,12 +68,16 @@ const MessageB = styled.div`
 const GameSidebar = (props) => {
     return (
         <div>
-            <Input placeholder="Enter text here" onKeyDown={props.submitWord}/>
+            <Input
+                placeholder="Enter text here"
+                onKeyDown={props.submitWord}
+                // disabled = {(props.state.inputDisabled)? "disabled" : ""}
+            />
             <CountdownWrapper>
                 <i className="glyphicon glyphicon-time mr-3"/>
                 <Countdown
-                    date={Date.now() + 180000}
-                    renderer={renderer}
+                    date={props.startedTime}
+                    renderer={countdownRenderer}
                 />
             </CountdownWrapper>
             <RestartButton onClick={props.restartGame}>Restart</RestartButton>

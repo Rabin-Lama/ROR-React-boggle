@@ -17,7 +17,9 @@ class Home extends Component {
             board_letters: [],
             correct_words: [],
             attempted_words: [],
-            total_score: 0
+            total_score: 0,
+            timer_start: Date.now() + 180000,
+            inputDisabled: false
         }
     }
 
@@ -48,7 +50,8 @@ class Home extends Component {
                     submitted_word_status: '',
                     correct_words: [],
                     attempted_words: [],
-                    total_score: 0
+                    total_score: 0,
+                    timer_start: Date.now() + 180000
                 })
             })
             .catch(response => {
@@ -62,7 +65,7 @@ class Home extends Component {
             this.setState(prevState => ({
                 attempted_words: [...prevState.attempted_words, submitted_word],
             }))
-            if(this.state.attempted_words.includes(submitted_word)) {
+            if(this.state.attempted_words.includes(submitted_word) || submitted_word.length === 1) {
                 e.target.value = ''
                 return false;
             }
@@ -99,6 +102,7 @@ class Home extends Component {
                     correctWords={this.state.correct_words}
                     totalScore={this.state.total_score}
                     submittedWordStatus={this.state.submitted_word_status}
+                    startedTime={this.state.timer_start}
                 /> :
                 <Instructions startGame={this.startGame.bind(this)}/>
         )

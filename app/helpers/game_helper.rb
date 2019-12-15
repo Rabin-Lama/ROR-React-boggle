@@ -108,6 +108,7 @@ module GameHelper
         possible_words.add(joined_letters) unless joined_letters.strip.empty?
       end
     end
+    false
   end
 
   def get_indices(haystack, needle)

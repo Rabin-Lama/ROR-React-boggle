@@ -21,6 +21,7 @@ class Game extends Component {
                                 restartGame={this.props.restartGame}
                                 submitWord={this.props.submitWord}
                                 submittedWordStatus={this.props.submittedWordStatus}
+                                startedTime={this.props.startedTime}
                             />
                         </div>
                         <div className="col-sm-5 col-md-5">
