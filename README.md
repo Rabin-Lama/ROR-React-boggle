@@ -8,6 +8,8 @@ so make sure that your system welcomes the specified versions.
 
 ## Installation
 
+**Note**: The provided intructions are for linux OS.
+
 Open up a terminal and navigate to a location where you would like to download this project.
 Then, enter the given commands sequentially
 
