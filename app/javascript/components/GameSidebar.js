@@ -4,10 +4,9 @@ import Countdown from 'react-countdown-now';
 
 const countdownRenderer = ({minutes, seconds, completed}, props) => {
     if (completed) {
-        // props.setState({inputDisabled: true})
         return <span>Time's Up !!!</span>;
     } else {
-        return <span>{minutes}:{seconds}</span>;
+        return <span>0{minutes}:{seconds}</span>;
     }
 };
 
@@ -30,6 +29,9 @@ const RestartButton = styled.div`
     font-size: 1.5em;
     font-weight: bold;
     text-align: center;
+    &:hover {
+        border: 2px solid black;
+    }
 `
 
 const HomeButton = styled.div`
@@ -37,9 +39,12 @@ const HomeButton = styled.div`
     padding: 10px 0;
     cursor: pointer;
     padding: 10px 0;
-    background-color: #D74234;
+    background-color: #1E90FF;
     font-size: 1.5em;
     text-align: center;
+    &:hover {
+        border: 2px solid black;
+    }
 `
 
 const Input = styled.input`
@@ -48,26 +53,12 @@ const Input = styled.input`
     background-color: rgba(0, 0, 0, 0.7);
     color: #fff;
     padding: 10px 5px;
+    &:focus {
+        border: 1px solid black;
+    }
 `
 
-const MessageR = styled.div`
-    background-color: #D74234;
-    height: 125px;
-    font-size: 1.5em;
-    text-align: center;
-    line-height: 125px;
-`
-
-const MessageG = styled.div`
-    background-color: #46A049;
-    height: 125px;
-    font-size: 1.5em;
-    text-align: center;
-    line-height: 125px;
-`
-
-const MessageB = styled.div`
-    background-color: #1E90FF;
+const Message = styled.div`
     height: 125px;
     font-size: 1.5em;
     text-align: center;
@@ -80,11 +71,12 @@ const GameSidebar = (props) => {
             <Input
                 placeholder="Enter text here"
                 onKeyDown={props.submitWord}
-                // disabled = {(props.state.inputDisabled)? "disabled" : ""}
+                disabled = {(props.inputDisabled)? "disabled" : ""}
             />
             <CountdownWrapper>
                 <i className="glyphicon glyphicon-time mr-3"/>
                 <Countdown
+                    onComplete={() => props.stopGame()}
                     date={props.startedTime}
                     renderer={countdownRenderer}
                 />
@@ -95,7 +87,7 @@ const GameSidebar = (props) => {
             <HomeButton onClick={props.backToInstructions}>
                 <i className="glyphicon arrow-left mr-3"/> Back to Instructions
             </HomeButton>
-            <MessageG>{props.messageToUser}</MessageG>
+            <Message>{props.messageToUser}</Message>
         </div>
     )
 }

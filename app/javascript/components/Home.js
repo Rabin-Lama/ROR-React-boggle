@@ -60,12 +60,21 @@ class Home extends Component {
                     correct_words: [],
                     attempted_words: [],
                     total_score: 0,
+                    inputDisabled: false,
                     timer_start: Date.now() + 180000
                 })
             })
             .catch(response => {
                 console.log(response)
             })
+    }
+
+    stopGame(e) {
+        alert("Your total score is " + this.state.total_score)
+        this.setState({
+            inputDisabled: true,
+            messageToUser: "You scored " + this.state.total_score
+        })
     }
 
     submitWord(e) {
@@ -122,8 +131,10 @@ class Home extends Component {
                 <Game
                     boardLetters={this.state.board_letters}
                     restartGame={this.restartGame.bind(this)}
+                    stopGame={this.stopGame.bind(this)}
                     backToInstructions={this.backToInstructions.bind(this)}
                     submitWord={this.submitWord.bind(this)}
+                    inputDisabled={this.state.inputDisabled}
                     correctWords={this.state.correct_words}
                     totalScore={this.state.total_score}
                     messageToUser={this.state.messageToUser}
