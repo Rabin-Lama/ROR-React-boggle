@@ -25,11 +25,20 @@ const RestartButton = styled.div`
     margin: 20px 0;
     padding: 10px 0;
     cursor: pointer;
-    text-decoration: none;
     padding: 10px 0;
     background-color: #D74234;
     font-size: 1.5em;
     font-weight: bold;
+    text-align: center;
+`
+
+const HomeButton = styled.div`
+    margin: 20px 0;
+    padding: 10px 0;
+    cursor: pointer;
+    padding: 10px 0;
+    background-color: #D74234;
+    font-size: 1.5em;
     text-align: center;
 `
 
@@ -43,26 +52,26 @@ const Input = styled.input`
 
 const MessageR = styled.div`
     background-color: #D74234;
-    height: 200px;
+    height: 125px;
     font-size: 1.5em;
     text-align: center;
-    line-height: 200px;
+    line-height: 125px;
 `
 
 const MessageG = styled.div`
     background-color: #46A049;
-    height: 200px;
+    height: 125px;
     font-size: 1.5em;
     text-align: center;
-    line-height: 200px;
+    line-height: 125px;
 `
 
 const MessageB = styled.div`
     background-color: #1E90FF;
-    height: 200px;
+    height: 125px;
     font-size: 1.5em;
     text-align: center;
-    line-height: 200px;
+    line-height: 125px;
 `
 
 const GameSidebar = (props) => {
@@ -80,8 +89,13 @@ const GameSidebar = (props) => {
                     renderer={countdownRenderer}
                 />
             </CountdownWrapper>
-            <RestartButton onClick={props.restartGame}>Restart</RestartButton>
-            <MessageG>{props.submittedWordStatus}</MessageG>
+            <RestartButton onClick={props.restartGame}>
+                <i className="glyphicon glyphicon-refresh mr-3"/> Restart
+            </RestartButton>
+            <HomeButton onClick={props.backToInstructions}>
+                <i className="glyphicon arrow-left mr-3"/> Back to Instructions
+            </HomeButton>
+            <MessageG>{props.messageToUser}</MessageG>
         </div>
     )
 }

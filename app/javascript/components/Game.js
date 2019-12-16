@@ -19,8 +19,10 @@ class Game extends Component {
                         <div className="col-sm-2 col-md-3">
                             <GameSidebar
                                 restartGame={this.props.restartGame}
+                                backToInstructions={this.props.backToInstructions}
                                 submitWord={this.props.submitWord}
-                                submittedWordStatus={this.props.submittedWordStatus}
+                                messageToUser={this.props.messageToUser}
+                                messageType={this.props.messageType}
                                 startedTime={this.props.startedTime}
                             />
                         </div>

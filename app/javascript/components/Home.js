@@ -13,7 +13,8 @@ class Home extends Component {
 
         this.state = {
             game_is_on: false,
-            submitted_word_status: '',
+            messageToUser: '',
+            messageType: 'blue',
             board_letters: [],
             correct_words: [],
             attempted_words: [],
@@ -41,13 +42,21 @@ class Home extends Component {
         }
     }
 
+    backToInstructions(e) {
+        e.preventDefault()
+
+        if (confirm("You'll lose all your progress. Are you sure ?")) {
+            this.setState({game_is_on: false})
+        }
+    }
+
     startGame(e) {
         axios.get('/get_board_letters.json')
             .then(response => {
                 this.setState({
                     game_is_on: true,
                     board_letters: response.data.data,
-                    submitted_word_status: '',
+                    messageToUser: '',
                     correct_words: [],
                     attempted_words: [],
                     total_score: 0,
@@ -75,14 +84,29 @@ class Home extends Component {
                 })
                 .then(response => {
                     if(response.data.result.length > 0) {
+                        let msg = '';
+                        let msg_type = '';
+                        if(response.data.result.length === 2) {
+                            msg = 'Nice'
+                            msg_type = 'green'
+                        } else if(response.data.result.length === 3) {
+                            msg = 'Cool'
+                            msg_type = 'green'
+                        } else {
+                            msg = 'Awesome'
+                            msg_type = 'green'
+                        }
                         this.setState(prevState => ({
                             correct_words: [...prevState.correct_words, response.data.result],
-                            submitted_word_status: response.data.result,
+                            messageToUser: msg,
+                            messageType: msg_type,
                         }))
 
                         // total score is sum of letters in all the words in the array
                         this.setState({total_score: this.state.correct_words.join('').length})
                         // alert(response.data.test_res)
+                    } else {
+                        this.setState({messageToUser: 'Wrong !', messageType: 'red'})
                     }
                 })
                 .catch(response => {
@@ -98,10 +122,12 @@ class Home extends Component {
                 <Game
                     boardLetters={this.state.board_letters}
                     restartGame={this.restartGame.bind(this)}
+                    backToInstructions={this.backToInstructions.bind(this)}
                     submitWord={this.submitWord.bind(this)}
                     correctWords={this.state.correct_words}
                     totalScore={this.state.total_score}
-                    submittedWordStatus={this.state.submitted_word_status}
+                    messageToUser={this.state.messageToUser}
+                    messageType={this.state.messageType}
                     startedTime={this.state.timer_start}
                 /> :
                 <Instructions startGame={this.startGame.bind(this)}/>
