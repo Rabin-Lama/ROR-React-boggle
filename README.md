@@ -58,6 +58,14 @@ rails s -p <port>
 
 Open up your browser and access the app via url `http://localhost:<port>`
 
+## Testing
+
+There are also some unit tests for the controller methods. To run it:
+
+```
+rake
+```
+
 **Disclaimer**
 
 This project uses https://developer.oxforddictionaries.com
