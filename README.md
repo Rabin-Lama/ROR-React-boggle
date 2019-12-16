@@ -50,4 +50,10 @@ rails s -p <port>
 
 Open up your browser and access the app via url `http://localhost:<port>`
 
+**Disclaimer**
+
+This project uses https://developer.oxforddictionaries.com
+api to validate if a word is valid. So even abbreviations will
+be accepted as a valid word. E.G. kl stands for kilolitre(s)
+
 **Enjoy !**
