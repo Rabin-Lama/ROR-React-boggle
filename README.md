@@ -35,6 +35,12 @@ Install all front-end dependencies
 yarn install
 ```
 
+Migrate db
+
+```
+rails db:migrate
+```
+
 Run rails server
 
 ```
